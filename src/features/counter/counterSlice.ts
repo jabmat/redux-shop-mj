@@ -26,8 +26,9 @@ export const incrementAsync = createAsyncThunk(
   }
 );
 
+// struktura wymagana of frameworka (redux) - należy ją znać:
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: 'counter', 
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
