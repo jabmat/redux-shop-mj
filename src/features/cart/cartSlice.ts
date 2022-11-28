@@ -7,6 +7,13 @@ export interface Item {
     price: number;
 }
 
+// export interface Items {
+// 	id: string;
+// 	name: string;
+// 	price: number;
+// }
+
+
 
 // tworzymy interfejs określający co będziemy w stanie przechowywać
 export interface CartState {
@@ -45,6 +52,12 @@ export const selectItemsQuantity = (state: RootState) => {
     // pobieramy aktualną ilość elementów (czyli długość)
     return state.cart.items.length;
 }
+
+// nowy Selektor do zadania 
+export const selectItems = (state: RootState) => {
+    return state.cart.items;
+}
+
 
 
 // export
