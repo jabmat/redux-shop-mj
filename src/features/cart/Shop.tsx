@@ -1,7 +1,10 @@
 // podejście klasowe lub funkcyjne
 
+import { useAppSelector } from '../../app/hooks';
+import { ProductModel, selectProducts } from '../product/productsSlice';
 import { Cart } from './Cart';
 import { Item } from './cartSlice';
+import './Shop.css';
 import { Product } from './Product';
 
 // funkcyjne:
@@ -18,48 +21,7 @@ export function Shop() {
 	// 	price: 150,
 	// };
 
-	const products: Item[] = [
-		{
-			id: '1',
-			name: 'Tomb Raider',
-			price: 151,
-		},
-		{
-			id: '2',
-			name: 'Tomb Raider2',
-			price: 152,
-		},
-		{
-			id: '3',
-			name: 'Tomb Raider3',
-			price: 153,
-		},
-		{
-			id: '4',
-			name: 'Tomb Raider4',
-			price: 154,
-		},
-		{
-			id: '5',
-			name: 'Tomb Raider5',
-			price: 155,
-		},
-		{
-			id: '6',
-			name: 'Tomb Raider5',
-			price: 156,
-		},
-		{
-			id: '7',
-			name: 'Tomb Raider5',
-			price: 157,
-		},
-		{
-			id: '8',
-			name: 'Tomb Raider5',
-			price: 158,
-		},
-	];
+	const products: ProductModel[] = useAppSelector(selectProducts);
 
 	// zad. 1
 	// Utwórz komponent Cart, który wyświetli informacje o statnie koszyka
@@ -86,11 +48,12 @@ export function Shop() {
 			{/* dla 1 obiektu */}
 			{/* <Product name={product.name} id={product.id} price={product.price} /> */}
 
-
-            {/* mapowanie po products */}
-			{products.map((product, key) => (
-				<Product name={product.name} id={product.id} price={product.price} />
-			))}
+			{/* mapowanie po products */}
+			<div className="products-list">
+				{products.map((product, key) => (
+					<Product name={product.name} id={product.id} price={product.price} />
+				))}
+			</div>
 		</div>
 	);
 }
