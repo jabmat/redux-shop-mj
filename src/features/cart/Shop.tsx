@@ -3,9 +3,8 @@
 import { useAppSelector } from '../../app/hooks';
 import { ProductModel, selectProducts } from '../product/productsSlice';
 import { Cart } from './Cart';
-import { Item } from './cartSlice';
-import './Shop.css';
 import { Product } from './Product';
+import './Shop.css';
 
 // funkcyjne:
 export function Shop() {
@@ -51,7 +50,12 @@ export function Shop() {
 			{/* mapowanie po products */}
 			<div className="products-list">
 				{products.map((product, key) => (
-					<Product name={product.name} id={product.id} price={product.price} />
+					<Product
+						key={key}
+						name={product.name}
+						id={product.id}
+						price={product.price}
+					/>
 				))}
 			</div>
 		</div>
