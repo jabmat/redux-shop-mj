@@ -1,5 +1,5 @@
-import { useAppDispatch } from "../../app/hooks";
-import { addItem, Item } from "./cartSlice";
+import { useAppDispatch } from '../../app/hooks';
+import { addItem, Item } from './cartSlice';
 import './Product.css';
 
 export interface ProductPros {
@@ -11,18 +11,17 @@ export interface ProductPros {
 export function Product(product: ProductPros) {
 	const dispatch = useAppDispatch();
 
-    const item: Item = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: 1
-    }
-
+	const item: Item = {
+		id: product.id,
+		name: product.name,
+		price: product.price,
+		quantity: 1,
+	};
 
 	return (
-        <div className="product">
-            <h3>{product.name}</h3>
-            <span className='product-price'>{ product.price}</span>
+		<div className="product">
+			<h3>{product.name}</h3>
+			<span className="product-price">{product.price}</span>
 			<button
 				onClick={() => {
 					dispatch(addItem(item));

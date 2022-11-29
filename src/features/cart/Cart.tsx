@@ -2,7 +2,8 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
 	Item,
 	selectItems,
-	selectItemsQuantity, removeItem
+	selectItemsQuantity,
+	removeItem,
 } from './cartSlice';
 import './Cart.css';
 
@@ -38,11 +39,11 @@ export function Cart() {
 			<ul>
 				{items.map((item, index) => (
 					<li key={index}>
-						{item.name} {item.price} ({item.quantity}) {renderRemoveButton(item.id)}{' '}
+						{item.name} {item.price} ({item.quantity})
+						{renderRemoveButton(item.id)}
 					</li>
 				))}
 			</ul>
 		</div>
 	);
 }
-
