@@ -24,6 +24,15 @@ const initialState: CartState = {
 	items: [],
 };
 
+// ad. 3.3 - dodatkowo
+// tworzenie funkcji przyjmującej parametry
+// const remove = (items: Item[], id: string) => {
+// 	// np
+// 	items = items.filter((i) => i.id !== id);
+// };
+// i wtedy wywołujemy remove
+
+
 // dodajemy produkt, tworzymy kawałek stanu:
 export const cartSlice = createSlice({
 	name: 'cart', //nazwa własna, jaką chcemy
@@ -58,6 +67,30 @@ export const cartSlice = createSlice({
 
 			state.items = itemsWithoutGivenItem;
 		},
+		// ad. 3.3
+		increaseQuantity: (state, action: PayloadAction<string>) => {
+			const id = action.payload;
+
+			const item = state.items.find((i) => i.id === id);
+
+			if (item) {
+				item.quantity++;
+			}
+		},
+		// ad. 3.3
+		descreaseQuantity: (state, action: PayloadAction<string>) => {
+			const id = action.payload;
+
+			const item = state.items.find((i) => i.id === id);
+
+			if (item) {
+				if (item.quantity > 1) {
+					item.quantity--;
+				} else {
+					state.items.filter((i) => i.id !== id);
+				}
+			}
+		},
 	},
 });
 
@@ -70,7 +103,7 @@ export const cartSlice = createSlice({
 
 // export przy użyciu .actions
 // (dodano removeItem)
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItem, increaseQuantity, descreaseQuantity } = cartSlice.actions;
 // alternatywnie, ale dłużej
 // export const addItem = cartSlice.actions.addItem;
 // export const removeItem = cartSlice.actions.removeItem;
@@ -80,10 +113,50 @@ export const selectItemsQuantity = (state: RootState) => {
 	// uwaga zwrócić uwagę na store.ts! oraz export w this pliku
 	// pobieramy aktualną ilość elementów (czyli długość)
 
+	// zad. 3.1
+	// wyłączamy total jak korzystamy z reduce
+	// let total = 0;
+
+	// Junior Level
+	// for (let i = 0; i < state.cart.items.length; i++) {
+	//     // wyciągamy quantity i dodajemy do sumy
+	//     total += state.cart.items[i].quantity;
+	// }
+
+	// wersja z for each Junior+ Level
+	// state.cart.items.forEach(item => {
+	//     total = + item.quantity;
+	// })
+
+	// funkcja reduce (szybsza od for each) Medium Level
+	// jeżeli tablica wygląda tak [ {quantity: 2}, { quantity: 3}]
+	const total = state.cart.items.reduce((acc, item) => {
+		acc += item.quantity;
+		return acc; // (1 iteracja) acc = 0 => 2; (2) 2 => 2+3=5
+	}, 0); // acc = 0;
+
 	// zad. 2.6
 	// zmodyfikuj selector:
-	return state.cart.items.length;
+	// modyfikacja zad. 3.1
+	// return state.cart.items.length;
+	return total;
 };
+
+// zad. 3.2 Utwórz selektor który zwróci całkowitą sumę koszyka
+// tworzymy selektor, podsumowujemy koszyk i wyświetlamy w komponencie koszyk
+export const selectTotal = (state: RootState) => {
+	let total = 0;
+	state.cart.items.forEach((item) => {
+		total += item.price * item.quantity;
+	});
+
+	return total;
+};
+
+// zad. 3.3
+// Utwórz dwie akcję w cartSlice, które kolejno usuną jedną sztuke produktu z koszyka lub dodadzą
+// W przypadku gdy ilość = 1 , produkt powinien byc usunięty całkowicie
+// Dodaj w produkcie Cart dwa przyciski które wykonają powyższe akcje
 
 // nowy Selektor do zadania
 export const selectItems = (state: RootState) => {

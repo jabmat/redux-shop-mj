@@ -4,6 +4,9 @@ import {
 	selectItems,
 	selectItemsQuantity,
 	removeItem,
+	selectTotal,
+	descreaseQuantity,
+	increaseQuantity,
 } from './cartSlice';
 import './Cart.css';
 
@@ -12,6 +15,9 @@ export function Cart() {
 	// pobieranie ilości
 
 	const items: Item[] = useAppSelector(selectItems);
+
+	// ad. zad. 3.2 -
+	const total: number = useAppSelector(selectTotal);
 	// add zad. 2.4: (dodajemy dispatcher)
 	const dispatch = useAppDispatch();
 
@@ -39,11 +45,21 @@ export function Cart() {
 			<ul>
 				{items.map((item, index) => (
 					<li key={index}>
-						{item.name} {item.price} ({item.quantity})
+						{item.name} {item.price}
+						<button onClick={() => dispatch(descreaseQuantity(item.id))}>
+							-
+						</button>
+						({item.quantity})
+						<button onClick={() => dispatch(increaseQuantity(item.id))}>
+							+
+						</button>
 						{renderRemoveButton(item.id)}
 					</li>
 				))}
 			</ul>
+
+			{/* ad. 3.2 */}
+			<div>Total: {total}</div>
 		</div>
 	);
 }
