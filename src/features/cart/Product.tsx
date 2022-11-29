@@ -19,16 +19,18 @@ export function Product(product: ProductPros) {
 	};
 
 	return (
-		<div className="product">
-			<h3>{product.name}</h3>
-			<span className="product-price">{product.price}</span>
-			<button
-				className="product-btn"
-				onClick={() => {
-					dispatch(addItem(item));
-				}}>
-				Add product
-			</button>
+		<div className="card">
+			<div className="card-body">
+				<h3 className="card-title">{product.name}</h3>
+				<span className="product-price">{product.price}</span>
+				<button
+					className="btn btn-primary"
+					onClick={() => {
+						dispatch(addItem(item));
+					}}>
+					Add product
+				</button>
+			</div>
 		</div>
 	);
 }

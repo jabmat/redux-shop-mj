@@ -17,11 +17,14 @@ export interface Item {
 // tworzymy interfejs określający co będziemy w stanie przechowywać
 export interface CartState {
 	items: Item[]; // tablica itemów
+
+	isDisplayed: boolean;
 }
 
 // tworzymy początkową wartość (initial state):
 const initialState: CartState = {
-	items: [],
+    items: [],
+    isDisplayed:
 };
 
 // ad. 3.3 - dodatkowo
@@ -90,7 +93,11 @@ export const cartSlice = createSlice({
 					state.items.filter((i) => i.id !== id);
 				}
 			}
-		},
+        },
+        toogleCart: (state) => {
+            // isDisplated => true -> false
+            state.isDisplayed = !state.isDisplayed;
+        }
 	},
 });
 
@@ -103,10 +110,11 @@ export const cartSlice = createSlice({
 
 // export przy użyciu .actions
 // (dodano removeItem)
-export const { addItem, removeItem, increaseQuantity, descreaseQuantity } = cartSlice.actions;
+export const { addItem, removeItem, increaseQuantity, descreaseQuantity, toogleCart } = cartSlice.actions;
 // alternatywnie, ale dłużej
 // export const addItem = cartSlice.actions.addItem;
 // export const removeItem = cartSlice.actions.removeItem;
+
 
 // tworzymy selector - chcemy np pobrać sobie ilość przedmiotów
 export const selectItemsQuantity = (state: RootState) => {

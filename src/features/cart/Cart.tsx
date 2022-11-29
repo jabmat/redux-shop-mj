@@ -39,27 +39,31 @@ export function Cart() {
 	};
 
 	return (
-		<div id="cart" className="cart">
-			{quantity}
+		<div id="cart" className="card position-fixed top-0 end-0 z-index-1">
+			<div className="card-body">
+				{quantity}
 
-			<ul>
-				{items.map((item, index) => (
-					<li key={index}>
-						{item.name} {item.price}
-						<button onClick={() => dispatch(descreaseQuantity(item.id))}>
-							-
-						</button>
-						({item.quantity})
-						<button onClick={() => dispatch(increaseQuantity(item.id))}>
-							+
-						</button>
-						{renderRemoveButton(item.id)}
-					</li>
-				))}
-			</ul>
+				<ul className="list-group">
+					{items.map((item, index) => (
+						<li className="list-group-item" key={index}>
+							{item.name} {item.price}
+							<button onClick={() => dispatch(descreaseQuantity(item.id))}>
+								-
+							</button>
+							({item.quantity})
+							<button onClick={() => dispatch(increaseQuantity(item.id))}>
+								+
+							</button>
+							{renderRemoveButton(item.id)}
+						</li>
+					))}
+				</ul>
 
-			{/* ad. 3.2 */}
-			<div>Total: {total}</div>
+				{/* ad. 3.2 */}
+				<div className='card-footer d-flex'>
+					<span>Total:</span> <strong>{total} PLN </strong>
+				</div>
+			</div>
 		</div>
 	);
 }
