@@ -1,4 +1,5 @@
 import { useAppDispatch } from '../../app/hooks';
+import { addNotification } from '../notifications/notificationsSlice';
 import { addItem, Item } from './cartSlice';
 import './Product.css';
 
@@ -18,16 +19,22 @@ export function Product(product: ProductPros) {
 		quantity: 1,
 	};
 
+	const handleClick = () => {
+		dispatch(addItem(item));
+		dispatch(
+			addNotification({
+				message: 'Produkt został dodany do koszyka.',
+				type: 'success',
+			})
+		);
+	};
+
 	return (
 		<div className="card">
 			<div className="card-body">
 				<h3 className="card-title">{product.name}</h3>
 				<span className="product-price">{product.price}</span>
-				<button
-					className="btn btn-primary"
-					onClick={() => {
-						dispatch(addItem(item));
-					}}>
+				<button className="btn btn-primary" onClick={handleClick}>
 					Add product
 				</button>
 			</div>

@@ -9,10 +9,8 @@ export function AlertList() {
 	// 	{ message: 'Trzeci Alert', type: 'warning' },
 	// 	{ message: 'Czwarty Alert', type: 'error' },
 	// ];
-    // zamiana na nowo utworzoną tablicę selectNotifications
-    const alerts = useAppSelector(selectNotifications);
-
-
+	// zamiana na nowo utworzoną tablicę selectNotifications
+	const alerts = useAppSelector(selectNotifications);
 
 	// zad. 4.2
 	// wyświetl listę komponentów Alert ze zmiennej alerts
@@ -24,7 +22,7 @@ export function AlertList() {
 		// </div>
 		<div>
 			{alerts.map((alert) => (
-				<Alert type={alert.type} message={alert.message} />
+				<Alert key={alert.id} type={alert.type} message={alert.message} />
 			))}
 		</div>
 	);
