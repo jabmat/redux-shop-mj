@@ -23,8 +23,8 @@ export interface CartState {
 
 // tworzymy początkową wartość (initial state):
 const initialState: CartState = {
-    items: [],
-    isDisplayed:
+	items: [],
+	isDisplayed: false,
 };
 
 // ad. 3.3 - dodatkowo
@@ -34,7 +34,6 @@ const initialState: CartState = {
 // 	items = items.filter((i) => i.id !== id);
 // };
 // i wtedy wywołujemy remove
-
 
 // dodajemy produkt, tworzymy kawałek stanu:
 export const cartSlice = createSlice({
@@ -90,14 +89,14 @@ export const cartSlice = createSlice({
 				if (item.quantity > 1) {
 					item.quantity--;
 				} else {
-					state.items.filter((i) => i.id !== id);
+					state.items = state.items.filter((i) => i.id !== id);
 				}
 			}
-        },
-        toogleCart: (state) => {
-            // isDisplated => true -> false
-            state.isDisplayed = !state.isDisplayed;
-        }
+		},
+		toggleCart: (state) => {
+			// isDisplated => true -> false
+			state.isDisplayed = !state.isDisplayed;
+		},
 	},
 });
 
@@ -110,11 +109,21 @@ export const cartSlice = createSlice({
 
 // export przy użyciu .actions
 // (dodano removeItem)
-export const { addItem, removeItem, increaseQuantity, descreaseQuantity, toogleCart } = cartSlice.actions;
+export const {
+	addItem,
+	removeItem,
+	increaseQuantity,
+	descreaseQuantity,
+	toggleCart,
+} = cartSlice.actions;
 // alternatywnie, ale dłużej
 // export const addItem = cartSlice.actions.addItem;
 // export const removeItem = cartSlice.actions.removeItem;
 
+// tworzymy selector ad. 3.4 'isDisplayed'
+export const selectIsDisplayed = (state: RootState) => {
+	return state.cart.isDisplayed;
+};
 
 // tworzymy selector - chcemy np pobrać sobie ilość przedmiotów
 export const selectItemsQuantity = (state: RootState) => {
@@ -154,6 +163,7 @@ export const selectItemsQuantity = (state: RootState) => {
 // tworzymy selektor, podsumowujemy koszyk i wyświetlamy w komponencie koszyk
 export const selectTotal = (state: RootState) => {
 	let total = 0;
+
 	state.cart.items.forEach((item) => {
 		total += item.price * item.quantity;
 	});
