@@ -1,9 +1,15 @@
 // podejście klasowe lub funkcyjne
 
-import { useAppSelector } from '../../app/hooks';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Alert } from '../notifications/Alert';
 import { AlertList } from '../notifications/AlertList';
-import { ProductModel, selectProducts } from '../product/productsSlice';
+import {
+	loadProducts,
+	ProductModel,
+	selectProducts,
+	selectSearchResults,
+} from '../product/productsSlice';
 import { Cart } from './Cart';
 import { Product } from './Product';
 import './Shop.css';
@@ -22,7 +28,13 @@ export function Shop() {
 	// 	price: 150,
 	// };
 
-	const products: ProductModel[] = useAppSelector(selectProducts);
+	const products: ProductModel[] = useAppSelector(selectSearchResults);
+	// nowe
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(loadProducts());
+	}, []);
 
 	// zad. 1
 	// Utwórz komponent Cart, który wyświetli informacje o statnie koszyka
@@ -44,7 +56,7 @@ export function Shop() {
 
 	// tworzymy komponent
 	return (
-		<div className='position-relative'>
+		<div className="position-relative">
 			<Cart />
 			{/* dla 1 obiektu */}
 			{/* <Product name={product.name} id={product.id} price={product.price} /> */}

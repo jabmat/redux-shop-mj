@@ -10,6 +10,7 @@ import {
 	selectIsDisplayed,
 } from './cartSlice';
 import './Cart.css';
+import { addNotification } from '../notifications/notificationsSlice';
 
 export function Cart() {
 	const quantity: number = useAppSelector(selectItemsQuantity);
@@ -26,6 +27,17 @@ export function Cart() {
 	// add zad. 2.4: (dodajemy dispatcher)
 	const dispatch = useAppDispatch();
 
+	// zadanie domowe
+	const handleRemoveClick = (id: string) => {
+		dispatch(removeItem(id));
+		dispatch(
+			addNotification({
+				message: `Produkt został usunięty z koszyka.`,
+				type: 'info',
+			})
+		);
+	};
+
 	// powrót do JS
 	// const names = ['Kamil', 'Jakub', 'Ania'];
 
@@ -41,9 +53,7 @@ export function Cart() {
 	// dodać możliwość usuwania elementu z koszyka (button) Products.tsx
 	const renderRemoveButton = (id: string) => {
 		return (
-			<button
-				className="btn btn-light"
-				onClick={() => dispatch(removeItem(id))}>
+			<button className="btn btn-light" onClick={() => handleRemoveClick(id)}>
 				x
 			</button>
 		);

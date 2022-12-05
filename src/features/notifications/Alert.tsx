@@ -1,7 +1,11 @@
+import { useAppDispatch } from '../../app/hooks';
+import { removeNotification } from './notificationsSlice';
+
 // 2. typujemy
 export interface AlertProps {
 	type: string;
 	message: string;
+	id: string;
 }
 
 // 1. tworzymy funkcję
@@ -17,6 +21,9 @@ export function Alert(props: AlertProps) {
 	// warning - żółty alert
 	// error - czerwony alert
 	// jeżęli nie znajdzie typu - szary alert
+
+	// zadanie
+	const dispatch = useAppDispatch();
 
 	// tworzymy funkcję
 	const getClassType = (type: string): string => {
@@ -34,7 +41,11 @@ export function Alert(props: AlertProps) {
 		}
 	};
 
+	const handleRemoveClick = (id: string) => {
+		dispatch(removeNotification({ id }));
+	};
+
 	return (
-		<div className={'alert ' + getClassType(props.type)}>{props.message}</div>
+		<div className={'alert alert-dismissible ' + getClassType(props.type)}><strong>{props.message}</strong><button type='button' className='btn-close' aria-label='Close' onClick={() => handleRemoveClick(props.id)}></button></div>
 	);
 }

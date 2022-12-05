@@ -12,12 +12,12 @@ export interface Notification {
 // jak ma ten kawałęk tortu wyglądać:
 export interface NotificationsState {
 	// lista notyfikacji
-	items: Notification[];
+	notifications: Notification[];
 	isDisplayed: boolean;
 }
 
 const initialState: NotificationsState = {
-	items: [{ id: '1', type: 'success', message: 'Pierwszy alert' }],
+	notifications: [{ id: '1', type: 'success', message: 'Pierwszy alert' }],
 	isDisplayed: false,
 };
 
@@ -52,21 +52,21 @@ export const notificationsSlice = createSlice({
 			// sposób 3
 
 			// zadanie domowe
-			if (state.items.length === 3) {
-				state.items.shift();
+			if (state.notifications.length === 3) {
+				state.notifications.shift();
 			}
 
 			// dodanie na koniec tablicy pushem
 			// state.items.push(notification);
 			// inny sposób dodania na koniec tablicy:
-			state.items = [...state.items, notification];
+			state.notifications = [...state.notifications, notification];
 		},
 
 		// usunięcie
 		removeNotification: (state, action: PayloadAction<{ id: string }>) => {
 			// tutaj implementacja
 			const { id } = action.payload;
-			state.items = state.items.filter((item) => item.id !== id);
+			state.notifications = state.notifications.filter((item) => item.id !== id);
 		},
 	},
 });
@@ -81,10 +81,10 @@ export const notificationsReducer = notificationsSlice.reducer;
 
 // selektor
 export const selectNotifications = (state: RootState) =>
-	state.notifications.items;
+	state.notifications.notifications;
 
 // nowy selektor zadanie domowe
 export const selectLast3Notifications = (state: RootState) => {
 	// używamy sloce() do wybrania trzech ostatnich elementów tablicy
-	return state.notifications.items.slice(-3);
+	return state.notifications.notifications.slice(-3);
 };
