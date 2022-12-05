@@ -1,6 +1,9 @@
 import { useAppSelector } from '../../app/hooks';
 import { Alert } from './Alert';
-import { selectNotifications } from './notificationsSlice';
+import {
+	selectLast3Notifications,
+	selectNotifications,
+} from './notificationsSlice';
 
 export function AlertList() {
 	// const alerts = [
@@ -10,7 +13,7 @@ export function AlertList() {
 	// 	{ message: 'Czwarty Alert', type: 'error' },
 	// ];
 	// zamiana na nowo utworzoną tablicę selectNotifications
-	const alerts = useAppSelector(selectNotifications);
+	const alerts = useAppSelector(selectLast3Notifications);
 
 	// zad. 4.2
 	// wyświetl listę komponentów Alert ze zmiennej alerts

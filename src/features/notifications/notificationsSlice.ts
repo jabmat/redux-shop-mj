@@ -51,6 +51,11 @@ export const notificationsSlice = createSlice({
 			// sposób 3
 			// sposób 3
 
+			// zadanie domowe
+			if (state.items.length === 3) {
+				state.items.shift();
+			}
+
 			// dodanie na koniec tablicy pushem
 			// state.items.push(notification);
 			// inny sposób dodania na koniec tablicy:
@@ -75,4 +80,11 @@ export const { addNotification, removeNotification } =
 export const notificationsReducer = notificationsSlice.reducer;
 
 // selektor
-export const selectNotifications = (state: RootState) => state.notifications.items;
+export const selectNotifications = (state: RootState) =>
+	state.notifications.items;
+
+// nowy selektor zadanie domowe
+export const selectLast3Notifications = (state: RootState) => {
+	// używamy sloce() do wybrania trzech ostatnich elementów tablicy
+	return state.notifications.items.slice(-3);
+};

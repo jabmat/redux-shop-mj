@@ -23,7 +23,7 @@ export function Product(product: ProductPros) {
 		dispatch(addItem(item));
 		dispatch(
 			addNotification({
-				message: 'Produkt został dodany do koszyka.',
+				message: `Produkt ${item.name} został dodany do koszyka.`,
 				type: 'success',
 			})
 		);

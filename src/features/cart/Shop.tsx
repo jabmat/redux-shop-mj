@@ -2,6 +2,7 @@
 
 import { useAppSelector } from '../../app/hooks';
 import { Alert } from '../notifications/Alert';
+import { AlertList } from '../notifications/AlertList';
 import { ProductModel, selectProducts } from '../product/productsSlice';
 import { Cart } from './Cart';
 import { Product } from './Product';
@@ -43,7 +44,7 @@ export function Shop() {
 
 	// tworzymy komponent
 	return (
-		<div>
+		<div className='position-relative'>
 			<Cart />
 			{/* dla 1 obiektu */}
 			{/* <Product name={product.name} id={product.id} price={product.price} /> */}
@@ -61,7 +62,7 @@ export function Shop() {
 					))}
 				</div>
 
-				<Alert type="success" message="Produkt został dodany do koszyka." />
+				<AlertList />
 				{/* <Alert type="info" message="Produkt został dodany do koszyka." />
 				<Alert type="warning" message="Produkt został dodany do koszyka." />
 				<Alert type="error" message="Produkt został dodany do koszyka." />
